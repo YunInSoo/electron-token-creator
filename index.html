@@ -1,0 +1,61 @@
+<!DOCTYPE >
+<html>
+  <head>
+    <title>토큰 생성기</title>
+    <style>
+      body {
+        background-image: linear-gradient(45deg, #ead790 0%, #ef8c53 100%);
+        text-align: center;
+      }
+
+      button {
+        background: rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        color: white;
+        padding: 1em 2em;
+        border: none;
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        font-size: 14pt;
+        position: relative;
+        top: 40%;
+        cursor: pointer;
+        outline: none;
+      }
+
+      button:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <button onclick="createToken()">토큰 생성</button>
+    <div id="token-text"></div>
+    이름: <input id="name" type="text" /> 이메일:
+    <input id="dept-name" type="text" />
+    <script src="renderer.js"></script>
+  </body>
+</html>
+<script>
+  async function createToken() {
+    // alert(await window.myAPI.getHash("Hello, world!"));
+    const name = document.getElementById("name").value;
+    const deptCode = 27;
+    const userId = document.getElementById("dept-name").value;
+    console.log(`${name}&${userId}&${deptCode}`);
+    let { token, iv } = await window.myAPI.getHash(
+      `${name}&${userId}&${deptCode}`
+    );
+    token = encodeURIComponent(token);
+    document.getElementById(
+      "token-text"
+    ).innerHTML = `Token:: ${token} iv ${iv}`;
+    // renderer.js
+  }
+</script>
